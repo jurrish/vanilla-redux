@@ -32,3 +32,42 @@ function greet(name) {
 greet('JR')('knows currying kinda');
 
 //the functions are just arguments
+
+
+// NOTE: EXAMPLES FROM https://www.sitepoint.com/currying-in-functional-javascript/
+
+
+var greetCurried = function(greeting) {
+  return function(name) {
+    console.log(greeting + ", " + name);
+  };
+};
+
+var greetHello = greetCurried("Hello");
+
+greetHello("Heidi");
+greetHello("Eddie");
+greetCurried("Hi there")("Howard");
+
+
+//==================================================================
+
+
+var greetDeeplyCurried = function(greeting) {
+  return function(separator) {
+    return function(emphasis) {
+      return function(name) {
+        console.log(greeting + separator + name + emphasis);
+      };
+    };
+  };
+};
+
+var greetAwkwardly = greetDeeplyCurried("Hello")("...")("?");
+greetAwkwardly("Heidi");
+
+var sayHello = greetDeeplyCurried("Hello")(", ");
+sayHello(".")("Heidi");
+
+var askHello = sayHello("?");
+askHello("Heidi");
